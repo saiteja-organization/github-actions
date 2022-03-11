@@ -52,14 +52,14 @@ jobs:
       - name: Checkout actions repo
         uses: actions/checkout@v2
         with:
-          repository: saiteja-organization/test1
-          path: test1
+          repository: saiteja-organization/github-actions
+          path: github-actions
           ref: main
           token: ${{ secrets.gh_token }}
 
       - name: Get changed tf files
         id: changed-files
-        uses: ./test1/.github/actions/changed-files-since-last-success
+        uses: ./github-actions/.github/actions/changed-files-since-last-success
         with:
           files_to_match: ${{ inputs.files_to_match }}
           github_token: ${{ secrets.gh_token }}
@@ -75,26 +75,23 @@ jobs:
       - name: Checkout actions repo
         uses: actions/checkout@v2
         with:
-          repository: saiteja-organization/test1
-          path: test1
+          repository: saiteja-organization/github-actions
+          path: github-actions
           ref: main
           token: ${{ secrets.gh_token }}       
 
       - name: Get changed tf file for frontend
         if: always()
         id: check-javascript-lint1
-        uses: ./test1/.github/actions/javascript-lint
+        uses: ./github-actions/.github/actions/javascript-lint
         with:
           frontend_config_file: ${{ inputs.frontend_config_file }}
-          frontend_wd: ${{ inputs.frontend_wd }}
-        
-        
-
+          frontend_wd: ${{ inputs.frontend_wd }}  
           
       - name: Get changed tf file for frontend
         if: always()
         id: check-javascript-lint2
-        uses: ./test1/.github/actions/javascript-lint
+        uses: ./github-actions/.github/actions/javascript-lint
         with:
           backend_config_file:  ${{ inputs.backend_config_file }}
           backend_wd: ${{ inputs.backend_wd }}

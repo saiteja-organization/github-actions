@@ -29,12 +29,12 @@ runs:
 
     - name: Check Javascript Vulnerabilities.
       shell: bash
-      working-directory: app
+      working-directory: ${{ inputs.frontend_wd }}
       run: npx audit-ci --config ${{ inputs.frontend_config_file }}
       
       
     - name: Check Javascript Vulnerabilities.
       shell: bash
-      working-directory: server
+      working-directory: ${{ inputs.backend_wd }}
       run: npx audit-ci --config ${{ inputs.frontend_config_file }}
            

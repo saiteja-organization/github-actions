@@ -82,13 +82,13 @@ jobs:
         id: check-javascript-lint1
         uses: ./github-actions/.github/actions/javascript-lint
         with:
-          frontend_config_file: ${{ inputs.config_file }}
+          config_file: ${{ inputs.config_file }}
           frontend_wd: ${{ inputs.frontend_wd }}
           
-      - name: Get changed tf file for frontend
+      - name: Get changed tf file for backend
         if: always()
         id: check-javascript-lint2
         uses: ./github-actions/.github/actions/javascript-lint
         with:
-          backend_config_file:  ${{ inputs.config_file }}
+          config_file:  ${{ inputs.config_file }}
           backend_wd: ${{ inputs.backend_wd }}

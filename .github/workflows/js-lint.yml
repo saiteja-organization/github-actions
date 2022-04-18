@@ -85,17 +85,13 @@ jobs:
         id: check-javascript-lint1
         uses: ./github-actions/.github/actions/javascript-lint
         with:
-          #frontend_config_file: ${{ inputs.frontend_config_file }}
+          frontend_config_file: ${{ inputs.frontend_config_file }}
           frontend_wd: ${{ inputs.frontend_wd }}
-          shell: bash
-          run: npx audit-ci --config ${{ inputs.frontend_config_file }}
           
       - name: Get changed tf file for frontend
         if: always()
         id: check-javascript-lint2
         uses: ./github-actions/.github/actions/javascript-lint
         with:
-          #backend_config_file:  ${{ inputs.backend_config_file }}
+          backend_config_file:  ${{ inputs.backend_config_file }}
           backend_wd: ${{ inputs.backend_wd }}
-          shell: bash
-          run: npx audit-ci --config ${{ inputs.backend_config_file }}

@@ -32,7 +32,7 @@ runs:
           then
             ls -lrt
             echo ${{ inputs.frontend_wd }}
-            npx audit-ci -d ${{ inputs.frontend_wd }} --config ${{ inputs.frontend_wd }}/${{ inputs.config_file }}
+            npx audit-ci -d ${{ inputs.frontend_wd }} --config ${{ inputs.frontend_wd }}${{ inputs.config_file }}
           fi
        
     - name: Check Javascript Vulnerabilities for backend.
@@ -42,6 +42,6 @@ runs:
           then
             ls -lrt
             echo ${{ inputs.backend_wd }}
-            npx audit-ci -d ${{ inputs.backend_wd }} --config ${{ inputs.backend_wd }}/${{ inputs.config_file }}
+            npx audit-ci -d ${{ inputs.backend_wd }} --config ${{ inputs.backend_wd }}${{ inputs.config_file }}
           fi
            

@@ -78,7 +78,6 @@ jobs:
           token: ${{ secrets.gh_token }}       
 
       - name: Get changed tf file for frontend
-        if: always()
         id: check-javascript-lint1
         uses: ./github-actions/.github/actions/javascript-lint
         with:
@@ -101,7 +100,6 @@ jobs:
           token: ${{ secrets.gh_token }}       
           
       - name: Get changed tf file for backend
-        if: always()
         id: check-javascript-lint2
         uses: ./github-actions/.github/actions/javascript-lint
         with:

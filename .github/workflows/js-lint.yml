@@ -22,7 +22,7 @@ on:
          type: string
          description: "A working directory passed from the caller workflow"
       backend_wd: 
-         required: false
+         required: true
          type: string
          description: "A working directory passed from the caller workflow"
        

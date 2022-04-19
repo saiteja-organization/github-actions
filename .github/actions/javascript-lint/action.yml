@@ -30,7 +30,7 @@ runs:
       working-directory: ${{ inputs.frontend_wd }}
       run: npx audit-ci --config ${{ inputs.config_file }}
        
-    - if: input.frontend_wd == 'backend_wd'
+    - if: input.backend_wd == 'backend_wd'
       shell: bash
       working-directory: ${{ inputs.backend_wd }}
       run: npx audit-ci --config ${{ inputs.config_file }}

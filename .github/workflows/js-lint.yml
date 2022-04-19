@@ -82,7 +82,7 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           config_file: ${{ inputs.config_file }}
-          working-directory: ${{ inputs.frontend_wd }}
+          working-dir: ${{ inputs.frontend_wd }}
   
           
   audit_ci_backend_job:
@@ -105,5 +105,5 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           config_file: ${{ inputs.config_file }}
-          working-directory: ${{ inputs.backend_wd }}     
+          working-dir: ${{ inputs.backend_wd }}     
 

@@ -25,12 +25,12 @@ runs:
       with:
         node-version: ${{ inputs.node_version }}
 
-    - if: input.frontend_wd == 'frontend_wd'
+    - if: inputs.frontend_wd == 'frontend_wd'
       shell: bash
       working-directory: ${{ inputs.frontend_wd }}
       run: npx audit-ci --config ${{ inputs.config_file }}
        
-    - if: input.backend_wd == 'backend_wd'
+    - if: inputs.backend_wd == 'backend_wd'
       shell: bash
       working-directory: ${{ inputs.backend_wd }}
       run: npx audit-ci --config ${{ inputs.config_file }}

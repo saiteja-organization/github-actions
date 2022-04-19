@@ -105,5 +105,5 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           config_file: ${{ inputs.config_file }}
-          frontend_wd: ${{ inputs.backend_wd }}     
+          backend_wd: ${{ inputs.backend_wd }}     
 

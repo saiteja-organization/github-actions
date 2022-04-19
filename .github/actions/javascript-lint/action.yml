@@ -7,7 +7,7 @@ inputs:
     required: true
   backend_wd: 
     description: "A working directory passed from the caller workflow"
-    required: false
+    required: true
   config_file:
     description: "A working directory passed from the caller workflow"
     default: "audit-ci.json"

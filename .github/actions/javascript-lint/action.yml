@@ -25,7 +25,7 @@ runs:
       with:
         node-version: ${{ inputs.node_version }}
 
-     - name: Check Javascript Vulnerabilities for frontend.
+    - name: Check Javascript Vulnerabilities for frontend.
       shell: bash
       run: |
           if [ -z "${{ inputs.frontend_wd }}" ]

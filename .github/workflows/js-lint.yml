@@ -85,6 +85,7 @@ jobs:
           frontend_wd: ${{ inputs.frontend_wd }}
           
       - name: Get changed tf file for backend
+        if: always()
         id: check-javascript-lint2
         uses: ./github-actions/.github/actions/javascript-lint
         with:

@@ -28,7 +28,7 @@ runs:
     - name: Check Javascript Vulnerabilities for frontend.
       shell: bash
       run: |
-          if [ -z "${{ inputs.frontend_wd }}" ]
+          if [ ! -z "${{ inputs.frontend_wd }}" ]
           then
             ls -lrt
             echo ${{ inputs.frontend_wd }}
@@ -38,7 +38,7 @@ runs:
     - name: Check Javascript Vulnerabilities for backend.
       shell: bash
       run: |
-          if [ -z "${{ inputs.backend_wd }}" ]
+          if [ ! -z "${{ inputs.backend_wd }}" ]
           then
             ls -lrt
             echo ${{ inputs.backend_wd }}

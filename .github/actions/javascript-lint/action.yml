@@ -29,9 +29,9 @@ runs:
       shell: bash
       working-directory: ${{ inputs.frontend_wd }}
       run: |
-          ls -lrt
-          pwd
-          npx audit-ci --config ${{ inputs.config_file }}
+          if "${{ inputs.frontend_wd }}" == "${{ inputs.frontend_wd }}" ; then
+            npx audit-ci -d ${{ inputs.frontend_wd }} --config ${{ inputs.frontend_wd }}${{ inputs.config_file }}
+          fi
 
     - name: Check Javascript Vulnerabilities for backend.
       shell: bash

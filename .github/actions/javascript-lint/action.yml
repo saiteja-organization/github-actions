@@ -20,10 +20,10 @@ inputs:
 outputs:
   js_vulns_frontend:
     description: Return true only when any files that match input files_to_match pattern have changed.
-    value: ${{ steps.changed-files.outputs.frontend_wd }}
+    value: ${{ steps.frontend.outputs.frontend_wd }}
   js_vulns_backend:
     description: Return true only when any files that match input files_to_match pattern have changed.
-    value: ${{ steps.changed-files.outputs.backend_wd }}
+    value: ${{ steps.backend.outputs.backend_wd }}
 
 runs:
   using: "composite"
@@ -34,11 +34,13 @@ runs:
         node-version: ${{ inputs.node_version }}
 
     - name: Check Javascript Vulnerabilities for frontend.
+      id: frontend
       shell: bash
       working-directory: ${{ inputs.frontend_wd }}
       run: echo "::set-output name=frontend_wd::$(npx audit-ci --config ${{ inputs.config_file }})"
 
     - name: Check Javascript Vulnerabilities for backend.
+      id: backend
       shell: bash
       working-directory: ${{ inputs.backend_wd }}
       run: echo "::set-output name=backend_wd::$(npx audit-ci --config ${{ inputs.config_file }})"

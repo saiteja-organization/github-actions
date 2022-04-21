@@ -82,12 +82,12 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           config_file: ${{ inputs.config_file }}
-          frontend_wd: ${{ inputs.frontend_wd }}
+          working_dir: ${{ inputs.frontend_wd }}
           
       - name: Get changed tf file for backend
         id: check-javascript-lint2
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           config_file: ${{ inputs.config_file }}
-          frontend_wd: ${{ inputs.backend_wd }}
+          working_dir: ${{ inputs.backend_wd }}
 

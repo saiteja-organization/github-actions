@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        working_dir: ${{fromJson(inputs.working_dir)}}
+        working_dir: ${{inputs.working_dir}}
     needs: changed_tf_files_job
     if: needs.changed_tf_files_job.outputs.any_changed == 'true'
     steps:

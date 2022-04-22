@@ -3,6 +3,10 @@ name: Reusable workflow for jslint
 on:
   workflow_call:
     inputs:
+      force_run_check:
+         required: false
+         type: string
+         description: "ID or filename of the workflow to get latest successful commit"
       workflow_id:
          required: true
          type: string

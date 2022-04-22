@@ -76,7 +76,7 @@ jobs:
           ref: main
           token: ${{ secrets.gh_token }}       
 
-      - name: Get changed tf file for frontend
+      - name: Get changed tf file for ${{ matrix.working_dir }}
         id: check-javascript-lint1
         uses: ./github-actions/.github/actions/javascript-lint
         with:

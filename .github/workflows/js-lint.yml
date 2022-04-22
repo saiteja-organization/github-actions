@@ -81,5 +81,5 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           config_file: ${{ inputs.config_file }}
-          working_dir: ${{ matrix.working_dir }}}
+          working_dir: ${{ matrix.working_dir }}
           

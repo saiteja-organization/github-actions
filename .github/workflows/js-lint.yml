@@ -64,7 +64,7 @@ jobs:
       matrix:
         working_dir: ${{fromJson(inputs.working_dir)}}
     needs: changed_tf_files_job
-    if: needs.changed_tf_files_job.outputs.any_changed == 'true'
+    if: ${{ inputs.force_run_check }} || needs.changed_js_files_job.outputs.any_changed == 'true'
     steps:
       - uses: actions/checkout@v2
         

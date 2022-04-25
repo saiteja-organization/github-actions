@@ -15,7 +15,6 @@ on:
          description: "Check for changes using only this list of files or regex (Defaults to the entire repo)"
          required: true
          type: string
-         default: (^|\/)yarn\.lock$
       config_file:
          required: false
          type: string
@@ -58,7 +57,7 @@ jobs:
         id: changed-files
         uses: ./github-actions/.github/actions/changed-files-since-last-success
         with:
-          files_to_match: app/${{ inputs.files_to_match }}
+          files_to_match: ${{ inputs.files_to_match }}
           github_token: ${{ secrets.gh_token }}
           workflow_id: ${{ inputs.workflow_id }}
           

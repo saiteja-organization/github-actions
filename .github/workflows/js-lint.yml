@@ -63,7 +63,7 @@ jobs:
       matrix:
         working_dir: ${{fromJson(inputs.working_dir)}}
     needs: changed_js_files_job
-    if: needs.changed_js_files_job.outputs.changed_files == ${{ matrix.working_dir }}/${{ inputs.files_to_match }}
+    if: needs.changed_js_files_job.outputs.changed_files == 'true'
     steps:
       - uses: actions/checkout@v2
         

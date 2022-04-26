@@ -3,10 +3,6 @@ name: Reusable workflow for javascript lint
 on:
   workflow_call:
     inputs:
-      force_run_check:
-         required: true
-         type: string
-         description: "Set config file to audit the js vulnerabilities"
       workflow_id:
          required: true
          type: string
@@ -57,7 +53,7 @@ jobs:
       id: changed-files
       uses: ./github-actions/.github/actions/changed-files-since-last-success
       with:
-        files_to_match: ${{ matrix.working_dir }}/${{ inputs.files_to_match }}
+        files_to_match: ${{ matrix.working_dir }}\/${{ inputs.files_to_match }}
         github_token: ${{ secrets.gh_token }}
         workflow_id: ${{ inputs.workflow_id }}
           
@@ -67,7 +63,7 @@ jobs:
       matrix:
         working_dir: ${{fromJson(inputs.working_dir)}}
     needs: changed_js_files_job
-    if: needs.changed_js_files_job.outputs.any_changed == 'true' || ${{ inputs.force_run_check }}
+    if: needs.changed_js_files_job.outputs.any_changed == 'true'
     steps:
       - uses: actions/checkout@v2
         

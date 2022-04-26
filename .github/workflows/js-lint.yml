@@ -3,6 +3,10 @@ name: Reusable workflow for javascript lint
 on:
   workflow_call:
     inputs:
+      force_run_check:
+         required: true
+         type: string
+         description: "Set config file to audit the js vulnerabilities"
       workflow_id:
          required: true
          type: string
@@ -63,7 +67,7 @@ jobs:
       matrix:
         working_dir: ${{fromJson(inputs.working_dir)}}
     needs: changed_js_files_job
-    if: needs.changed_js_files_job.outputs.any_changed == 'true'
+    if: needs.changed_js_files_job.outputs.any_changed == 'true' || ${{ inputs.force_run_check }}
     steps:
       - uses: actions/checkout@v2
         

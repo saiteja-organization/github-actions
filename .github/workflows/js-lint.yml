@@ -30,6 +30,9 @@ on:
 jobs:
   changed_tf_files_job:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        working_dir: ${{fromJson(inputs.working_dir)}}
     outputs:
       changed_files: ${{ steps.changed-files.outputs.changed_files }}
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
@@ -54,7 +57,7 @@ jobs:
         id: changed-files
         uses: ./github-actions/.github/actions/changed-files-since-last-success
         with:
-          files_to_match: ${{ inputs.files_to_match }}
+          files_to_match: ${{ matrix.working_dir }}/${{ inputs.files_to_match }}
           github_token: ${{ secrets.gh_token }}
           workflow_id: ${{ inputs.workflow_id }}
           

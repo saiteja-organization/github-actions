@@ -59,7 +59,7 @@ jobs:
 
     - name: Check js vulnerabilities for ${{ matrix.working_dir }}
       id: check-javascript-lint1
-      if: ${{ steps.changed-files.outputs.any_changed == ${{ matrix.working_dir }}\/${{ inputs.files_to_match }} }}
+      if: ${{ steps.changed-files.outputs.any_changed }} == 'true'
       uses: ./github-actions/.github/actions/javascript-lint
       with:
         working_dir: ${{ matrix.working_dir }}

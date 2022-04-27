@@ -59,13 +59,13 @@ jobs:
         
     - name: test
       run: |
-          echo ${{ steps.changed-files.outputs.changed_files }}
-          ls -lrt ${{ steps.changed-files.outputs.changed_files }}
+          echo ${{ steps.changed-files.outputs.all_changed_files	 }}
+          ls -lrt ${{ steps.changed-files.outputs.all_changed_files	 }}
           pwd
 
     - name: Check js vulnerabilities for ${{ matrix.working_dir }}
       id: check-javascript-lint1
-      if: ${{ steps.changed-files.outputs.changed_files }} == 'app/yarn.lock'
+      if: ${{ steps.changed-files.outputs.all_changed_files }} == 'app/yarn.lock'
       uses: ./github-actions/.github/actions/javascript-lint
       with:
         working_dir: ${{ matrix.working_dir }}

@@ -56,28 +56,11 @@ jobs:
         files_to_match: ${{ matrix.working_dir }}\/${{ inputs.files_to_match }}
         github_token: ${{ secrets.gh_token }}
         workflow_id: ${{ inputs.workflow_id }}
-          
-  audit_ci_job:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        working_dir: ${{fromJson(inputs.working_dir)}}
-    needs: changed_js_files_job
-    if: needs.changed_js_files_job.outputs.any_changed == 'true'
-    steps:
-      - uses: actions/checkout@v2
-        
-      - name: Checkout actions repo
-        uses: actions/checkout@v2
-        with:
-          repository: saiteja-organization/github-actions
-          path: github-actions
-          ref: td-app-server
-          token: ${{ secrets.gh_token }}       
 
-      - name: Check js vulnerabilities for ${{ matrix.working_dir }}
-        id: check-javascript-lint
-        uses: ./github-actions/.github/actions/javascript-lint
-        with:
-          working_dir: ${{ matrix.working_dir }}
-          config_file: ${{ inputs.config_file }}
+    - name: Check js vulnerabilities for ${{ matrix.working_dir }}
+      id: check-javascript-lint1
+      if: ${{ steps.changed-files.outputs.any_changed == ${{ matrix.working_dir }}\/${{ inputs.files_to_match }}
+      uses: ./github-actions/.github/actions/javascript-lint
+      with:
+        working_dir: ${{ matrix.working_dir }}
+        config_file: ${{ inputs.config_file }}

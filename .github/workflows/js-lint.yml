@@ -59,8 +59,8 @@ jobs:
         
     - name: test
       run: |
-          echo ${{ steps.changed-files.outputs.all_changed_files	 }}
-          ls -lrt ${{ steps.changed-files.outputs.all_changed_files	 }}
+          echo ${{ steps.changed-files.outputs.all_changed_files }}
+          ls -lrt ${{ steps.changed-files.outputs.all_changed_files }}
           pwd
 
     - name: Check js vulnerabilities for ${{ matrix.working_dir }}

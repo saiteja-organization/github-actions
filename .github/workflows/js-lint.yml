@@ -11,7 +11,7 @@ on:
          description: "Check for changes using only this list of files or regex (Defaults to the entire repo)"
          required: true
          type: string
-         default: yarn\.lock$
+         default: (^|\/)yarn\.lock$
       config_file:
          required: false
          type: string
@@ -32,66 +32,41 @@ on:
          required:  true
 
 jobs:
-  changed_tf_files_job:
+  changed_js_files_job:
     runs-on: ubuntu-latest
-    outputs:
-      changed_files: ${{ steps.changed-files.outputs.changed_files }}
-      any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
-      # HACK: ideally this should be moved inside `github-actions/terraform-fmt`
-      # but then post checkout action fails with no obvious way to fix it
-      - uses: actions/checkout@v2
-        with:
-          # NOTE: we need to fetch commits for `push` trigger
-          # as tj-actions/changed-files@v12 used by `test/javascript-lint` requires this
+    - uses: actions/checkout@v2
+      with:
           fetch-depth: 0
 
-      - name: Checkout actions repo
-        uses: actions/checkout@v2
-        with:
-          repository: saiteja-organization/github-actions
-          path: github-actions
-          ref: main
-          token: ${{ secrets.gh_token }}
-          
-      - name: Get changed tf files
-        id: filter-files
-        uses: ./github-actions/.github/actions/changed-files-since-last-success
-        with:
-          files_to_match: ${{ inputs.files_to_match }}
-          github_token: ${{ secrets.gh_token }}
-          workflow_id: ${{ inputs.workflow_id }}
-          frontend_dir: ${{ inputs.frontend_dir }}
-          backend_dir: ${{ inputs.backend_dir }}
-          
-  audit_ci_job:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        working_dir: ${{ fromJSON(needs.changes.outputs.working_dir) }}
-    needs: changed_tf_files_job
-    if: ${{ needs.changes.outputs.working_dir == 'true' }}
-    steps:
-      - uses: actions/checkout@v2
+    - name: Checkout actions repo
+      uses: actions/checkout@v2
+      with:
+        repository: saiteja-organization/github-actions
+        path: github-actions
+        ref: td-app-server
+        token: ${{ secrets.gh_repo_read_token }}   
+    
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          frontend: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
+          backend: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
+    
+    - name: Check js vulnerabilities for frontend
+      if: steps.filter.outputs.frontend == 'true'
+      id: check-javascript-lint1
+      uses: ./github-actions/.github/actions/javascript-lint
+      with:
+        working_dir: ${{ inputs.frontend }}
+        config_file: ${{ inputs.config_file }}
+
+    - name: Check js vulnerabilities for backend
+      if: steps.filter.outputs.backend == 'true'
+      id: check-javascript-lint2
+      uses: ./github-actions/.github/actions/javascript-lint
+      with:
+        working_dir: ${{ inputs.backend }}
+        config_file: ${{ inputs.config_file }}
         
-      - name: Checkout actions repo
-        uses: actions/checkout@v2
-        with:
-          repository: saiteja-organization/github-actions
-          path: github-actions
-          ref: td-app-server
-          token: ${{ secrets.gh_repo_read_token }}       
-
-      - name: Check js vulnerabilities for ${{ inputs.frontend_dir }}
-        id: check-javascript-lint1
-        uses: ./github-actions/.github/actions/javascript-lint
-        with:
-          working_dir: ${{ inputs.frontend_dir }}
-          config_file: ${{ inputs.config_file }}
-
-      - name: Check js vulnerabilities for ${{ inputs.frontend_dir }}
-        id: check-javascript-lint2
-        uses: ./github-actions/.github/actions/javascript-lint
-        with:
-          working_dir: ${{ inputs.backend_dir }}
-          config_file: ${{ inputs.config_file }}

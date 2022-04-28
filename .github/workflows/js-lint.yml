@@ -32,27 +32,44 @@ on:
          required:  true
 
 jobs:
-  # JOB to run change detection
-  changes:
+  changed_tf_files_job:
     runs-on: ubuntu-latest
     outputs:
-      # Expose matched filters as job 'packages' output variable
-      working_dir: ${{ steps.filter.outputs.changes }}
+      changed_files: ${{ steps.changed-files.outputs.changed_files }}
+      any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
-    # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        filters: |
-          frontend_dir: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
-          backend_dir: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
+      # HACK: ideally this should be moved inside `github-actions/terraform-fmt`
+      # but then post checkout action fails with no obvious way to fix it
+      - uses: actions/checkout@v2
+        with:
+          # NOTE: we need to fetch commits for `push` trigger
+          # as tj-actions/changed-files@v12 used by `test/javascript-lint` requires this
+          fetch-depth: 0
+
+      - name: Checkout actions repo
+        uses: actions/checkout@v2
+        with:
+          repository: saiteja-organization/github-actions
+          path: github-actions
+          ref: main
+          token: ${{ secrets.gh_token }}
+          
+      - name: Get changed tf files
+        id: filter-files
+        uses: ./github-actions/.github/actions/changed-files-since-last-success
+        with:
+          files_to_match: ${{ inputs.files_to_match }}
+          github_token: ${{ secrets.gh_token }}
+          workflow_id: ${{ inputs.workflow_id }}
+          frontend_dir: ${{ inputs.frontend_dir }}
+          backend_dir: ${{ inputs.backend_dir }}
           
   audit_ci_job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         working_dir: ${{ fromJSON(needs.changes.outputs.working_dir) }}
-    needs: changes
+    needs: changed_tf_files_job
     if: ${{ needs.changes.outputs.working_dir == 'true' }}
     steps:
       - uses: actions/checkout@v2

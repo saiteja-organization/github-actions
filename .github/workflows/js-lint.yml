@@ -44,8 +44,8 @@ jobs:
       id: filter
       with:
         filters: |
-          frontend_dir: ${{ matrix.frontend_dir }}/${{ inputs.files_to_match }}
-          backend_dir: ${{ matrix.backend_dir }}/${{ inputs.files_to_match }}
+          frontend_dir: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
+          backend_dir: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
           
   audit_ci_job:
     runs-on: ubuntu-latest

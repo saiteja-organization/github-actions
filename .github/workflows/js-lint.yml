@@ -51,8 +51,8 @@ jobs:
       id: filter
       with:
         filters: |
-          frontend_dir: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
-          backend_dir: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
+          frontend: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
+          backend: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
     
     - name: Check js vulnerabilities for frontend
       if: steps.filter.outputs.frontend == 'true'

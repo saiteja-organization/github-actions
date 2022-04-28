@@ -13,6 +13,14 @@ inputs:
     description: "Check for changes using only this list of files or regex (Defaults to the entire repo)"
     required: false
     default: ""
+  frontend_dir: 
+    required: true
+    type: string
+    description: "A working directory passed from the caller workflow" 
+   backend_dir: 
+    required: true
+    type: string
+    description: "A working directory passed from the caller workflow"
 
 outputs:
   any_changed:
@@ -57,4 +65,12 @@ runs:
         files: ${{ inputs.files_to_match }}
         # Note: this flow might break if files contain spaces, then should overwrite logic using `separator`
         # separator: ","
+     - name: Filter the jobs 
+      uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        base: ${{ steps.common_ancestor_commit.outputs.commit_sha || steps.last_successful_commit.outputs.commit_hash }}
+        filters: |
+          frontend_dir: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
+          backend_dir: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
         

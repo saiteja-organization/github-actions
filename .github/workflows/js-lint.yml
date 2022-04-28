@@ -66,9 +66,9 @@ jobs:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes
-        any_changed: ${{ fromJSON(needs.changed_js_files_job.outputs.any_changed) }}
+        all_changed: ${{ fromJSON(needs.changed_js_files_job.outputs.any_changed) }}
     needs: changed_js_files_job
-    if: ${{ fromJSON(needs.changed_js_files_job.outputs.any_changed) }} == 'true'
+    if: ${{ matrix.all_changed) }} == 'true'
     steps:
       - uses: actions/checkout@v2
         

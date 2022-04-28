@@ -17,7 +17,11 @@ on:
          type: string
          default: "audit-ci.json"
          description: "Set config file to audit the js vulnerabilities"
-      working_dir: 
+      frontend_dir: 
+         required: true
+         type: string
+         description: "A working directory passed from the caller workflow" 
+      backend_dir: 
          required: true
          type: string
          description: "A working directory passed from the caller workflow" 

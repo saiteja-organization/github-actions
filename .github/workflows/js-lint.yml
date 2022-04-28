@@ -30,12 +30,10 @@ on:
 jobs:
   changed_js_files_job:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        working_dir: ${{fromJson(inputs.working_dir)}}
     outputs:
       changed_files: ${{ steps.changed-files.outputs.changed_files }}
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
+      working_dir: ${{ steps.set-matrix.outputs.working_dir }}
     steps:
     - uses: actions/checkout@v2
       with:
@@ -48,6 +46,10 @@ jobs:
         path: github-actions
         ref: td-app-server
         token: ${{ secrets.gh_token }}
+        
+    - id: set-matrix
+      run: |
+        echo "::set-output name=working_dir::[${{ inputs.frontend_dir }},${{ inputs.backend_dir }}]"
 
     - name: Get changed javascript files
       id: changed-files

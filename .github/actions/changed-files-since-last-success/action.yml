@@ -29,6 +29,7 @@ outputs:
   changed_files:
     description: List of all copied, modified, and added files that match input files_to_match pattern.
     value: ${{ steps.changed-files.outputs.all_changed_files}}
+  working_dir: ${{ steps.filter.outputs.changes }}
 
 runs:
   using: "composite"

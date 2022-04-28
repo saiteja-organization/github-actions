@@ -68,7 +68,7 @@ jobs:
         # e.g. ['package1', 'package2'] if both package folders contains changes
         any_changed: ${{ fromJSON(needs.changed_js_files_job.outputs.any_changed) }}
     needs: changed_js_files_job
-    if: ${{ matrix.any_changed }}  == 'true'
+    if: ${{ matrix.any_changed }} == 'true'
     steps:
       - uses: actions/checkout@v2
         

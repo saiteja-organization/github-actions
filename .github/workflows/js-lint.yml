@@ -11,17 +11,13 @@ on:
          description: "Check for changes using only this list of files or regex (Defaults to the entire repo)"
          required: true
          type: string
-         default: (^|\/)yarn\.lock$
+         default: yarn.lock
       config_file:
          required: false
          type: string
          default: "audit-ci.json"
          description: "Set config file to audit the js vulnerabilities"
-      frontend_dir: 
-         required: true
-         type: string
-         description: "A working directory passed from the caller workflow" 
-      backend_dir: 
+      dir: 
          required: true
          type: string
          description: "A working directory passed from the caller workflow" 

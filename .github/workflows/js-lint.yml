@@ -40,7 +40,7 @@ jobs:
     - name: Checkout actions repo
       uses: actions/checkout@v2
       with:
-        repository: merit/github-actions
+        repository: saiteja-organization/github-actions
         path: github-actions
         ref: td-js-vulns
         token: ${{ secrets.gh_repo_read_token }}
@@ -63,7 +63,7 @@ jobs:
       - name: Checkout actions repo
         uses: actions/checkout@v2
         with:
-          repository: merit/github-actions
+          repository: saiteja-organization/github-actions
           path: github-actions
           ref: td-js-vulns
           token: ${{ secrets.gh_repo_read_token }}       

@@ -69,8 +69,7 @@ jobs:
           ref: td-app-server
           token: ${{ secrets.gh_token }}       
 
-      - name: Check js vulnerabilities for frontend
-        if: needs.changed_js_files_job.outputs.frontend == 'true' 
+      - name: Check js vulnerabilities for frontend 
         id: check-javascript-lint1
         uses: ./github-actions/.github/actions/javascript-lint
         with:

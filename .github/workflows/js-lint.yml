@@ -48,7 +48,7 @@ jobs:
       id: changed-files
       uses: ./github-actions/.github/actions/changed-files-since-last-success
       with:
-        files_to_match: ${{ inputs.files_to_match }}
+        files_to_match: ${{ inputs.dir }}/${{ inputs.files_to_match }}
         github_token: ${{ secrets.gh_token }}
         workflow_id: ${{ inputs.workflow_id }}
 

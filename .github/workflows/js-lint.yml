@@ -25,6 +25,10 @@ on:
          required: true
          type: string
          description: "A working directory passed from the caller workflow" 
+      force_run_check: 
+         required: true
+         type: string
+         description: "A working directory passed from the caller workflow" 
     secrets:
       gh_token:
          required:  true

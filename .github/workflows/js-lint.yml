@@ -44,7 +44,7 @@ jobs:
         repository: saiteja-organization/github-actions
         path: github-actions
         ref: td-app-server
-        token: ${{ secrets.gh_repo_read_token }}
+        token: ${{ secrets.gh_token }}
 
     - name: Get changed js files
       id: changed-files
@@ -75,5 +75,3 @@ jobs:
         with:
           working_dir: ${{ inputs.dir }}
           config_file: ${{ inputs.config_file }}
-
-          

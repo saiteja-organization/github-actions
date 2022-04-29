@@ -46,7 +46,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        base: ${{ github.ref }}
+        base: ${{ github.base_ref }}
         filters: |
           frontend: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
           backend: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}

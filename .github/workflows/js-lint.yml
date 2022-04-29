@@ -59,7 +59,7 @@ jobs:
   audit_ci_job:
     runs-on: ubuntu-latest
     needs: changed_js_files_job
-    if: needs.changed_js_files_job.outputs.frontend == 'true' || needs.changed_js_files_job.outputs.backend == 'true'
+    if: needs.changed_js_files_job.outputs.frontend == 'true' || needs.changed_js_files_job.outputs.backend == 'true' || ${{ inputs.force_run_check }}
     steps:
       - uses: actions/checkout@v2
         

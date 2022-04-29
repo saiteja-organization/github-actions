@@ -37,7 +37,6 @@ jobs:
     - uses: actions/checkout@v2
       with:
           fetch-depth: 0
-
     - name: Checkout actions repo
       uses: actions/checkout@v2
       with:
@@ -45,8 +44,7 @@ jobs:
         path: github-actions
         ref: td-app-server
         token: ${{ secrets.gh_token }}
-
-    - name: Get changed js files
+    - name: Get changed javascript files
       id: changed-files
       uses: ./github-actions/.github/actions/changed-files-since-last-success
       with:
@@ -69,7 +67,7 @@ jobs:
           ref: td-app-server
           token: ${{ secrets.gh_token }}       
 
-      - name: Check js vulnerabilities for frontend 
+      - name: Check js vulnerabilities for ${{ inputs.dir }} 
         id: check-javascript-lint1
         uses: ./github-actions/.github/actions/javascript-lint
         with:

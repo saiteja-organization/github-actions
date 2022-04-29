@@ -76,7 +76,7 @@ jobs:
           config_file: ${{ inputs.config_file }}
 
       - name: Check js vulnerabilities for backend
-        if: needs.changed_js_files_job.outputs.backend == 'true' 
+        if: always() && needs.changed_js_files_job.outputs.backend == 'true' 
         id: check-javascript-lint2
         uses: ./github-actions/.github/actions/javascript-lint
         with:

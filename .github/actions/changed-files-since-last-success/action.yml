@@ -8,19 +8,11 @@ inputs:
   workflow_id:
     description: "ID or filename of the workflow to get latest successful commit"
     required: true
-    default: tf-lint.yml
+    default: tf-fmt-check.yml
   files_to_match:
     description: "Check for changes using only this list of files or regex (Defaults to the entire repo)"
     required: false
     default: ""
-  frontend_dir: 
-    required: true
-    type: string
-    description: "A working directory passed from the caller workflow" 
-   backend_dir: 
-    required: true
-    type: string
-    description: "A working directory passed from the caller workflow"
 
 outputs:
   any_changed:
@@ -29,7 +21,6 @@ outputs:
   changed_files:
     description: List of all copied, modified, and added files that match input files_to_match pattern.
     value: ${{ steps.changed-files.outputs.all_changed_files}}
-  working_dir: ${{ steps.filter.outputs.changes }}
 
 runs:
   using: "composite"
@@ -37,9 +28,7 @@ runs:
     - name: Fetch branch
       if: ${{ github.base_ref }}
       shell: bash
-      run: |
-           git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
-           echo "${{ github.base_ref }}"
+      run: git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}
 
     - name: Get last successful commit on base branch
       uses: nrwl/last-successful-commit-action@v1
@@ -58,12 +47,11 @@ runs:
         LAST_SUCCESSFUL_COMMIT: ${{ steps.last_successful_commit.outputs.commit_hash }}
         GITHUB_BASE_BRANCH: ${{ github.base_ref }}
 
-     - name: Filter the jobs 
-       uses: dorny/paths-filter@v2
-       id: filter
-       with:
-        base: ${{ steps.common_ancestor_commit.outputs.commit_sha || steps.last_successful_commit.outputs.commit_hash }}
-        filters: |
-          frontend_dir: ${{ inputs.frontend_dir }}/${{ inputs.files_to_match }}
-          backend_dir: ${{ inputs.backend_dir }}/${{ inputs.files_to_match }}
-        
+    - name: Get changed files
+      uses: tj-actions/changed-files@v12
+      id: changed-files
+      with:
+        base_sha: ${{ steps.common_ancestor_commit.outputs.commit_sha || steps.last_successful_commit.outputs.commit_hash }}
+        files: ${{ inputs.files_to_match }}
+        # Note: this flow might break if files contain spaces, then should overwrite logic using `separator`
+        # separator: ","

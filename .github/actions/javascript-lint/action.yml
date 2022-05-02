@@ -9,6 +9,11 @@ inputs:
     description: "The version of nodejs to use, defaults to `14`."
     default: "14"
     required: false
+  config_file:
+    required: false
+    type: string
+    default: "audit-ci.json"
+    description: "Set config file to audit the js vulnerabilities"
 
 runs:
   using: "composite"

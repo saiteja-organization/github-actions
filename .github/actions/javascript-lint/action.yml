@@ -25,5 +25,5 @@ runs:
     - name: Check Javascript Vulnerabilities for frontend and backend.
       shell: bash
       working-directory: ${{ inputs.working_dir }}
-      run: npx audit-ci --config ${{ inputs.config_file }}
+      run: npx audit-ci
       

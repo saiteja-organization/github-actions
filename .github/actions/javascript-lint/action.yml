@@ -12,7 +12,6 @@ inputs:
   config_file:
     required: false
     type: string
-    default: "audit-ci.json"
     description: "Set config file to audit the js vulnerabilities"
 
 runs:

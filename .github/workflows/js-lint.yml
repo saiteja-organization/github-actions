@@ -12,11 +12,6 @@ on:
          required: true
          type: string
          default: yarn.lock
-      force_run_check:
-         required: true
-         type: string
-         default: "audit-ci.json"
-         description: "Set config file to audit the js vulnerabilities"
       dir: 
          required: true
          type: string
@@ -52,10 +47,10 @@ jobs:
         github_token: ${{ secrets.gh_token }}
         workflow_id: ${{ inputs.workflow_id }}
 
-  audit_ci_frontend_job:
+  audit_ci_job:
     runs-on: ubuntu-latest
     needs: changed_js_files_job
-    if: ${{ inputs.force_run_check }} || needs.changed_js_files_job.outputs.any_changed == 'true'
+    if: needs.changed_js_files_job.outputs.any_changed == 'true'
     steps:
       - uses: actions/checkout@v2
         

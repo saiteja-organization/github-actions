@@ -12,11 +12,6 @@ on:
          required: true
          type: string
          default: yarn.lock
-      config_file:
-         required: false
-         type: string
-         default: "audit-ci.json"
-         description: "Set config file to audit the js vulnerabilities"
       force_run_check:
          required: true
          type: string
@@ -77,4 +72,3 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           working_dir: ${{ inputs.dir }}
-          config_file: ${{ inputs.config_file }}

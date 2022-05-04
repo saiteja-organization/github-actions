@@ -10,7 +10,7 @@ inputs:
     default: "14"
     required: false
   config_file:
-    required: false
+    required: true
     type: string
     description: "Set config file to audit the js vulnerabilities"
   config:

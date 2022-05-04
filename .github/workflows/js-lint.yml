@@ -76,5 +76,4 @@ jobs:
         uses: ./github-actions/.github/actions/javascript-lint
         with:
           working_dir: ${{ inputs.dir }}
-          config_file: ${{ inputs.config_file }}
           config: ${{ inputs.config }}

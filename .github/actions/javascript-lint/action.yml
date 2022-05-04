@@ -13,6 +13,7 @@ inputs:
     required: false
     type: string
     description: "Set config file to audit the js vulnerabilities"
+    default: "audit-ci.json"
   config:
     required: true
     type: string

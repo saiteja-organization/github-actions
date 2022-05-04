@@ -3,11 +3,6 @@ name: Reusable workflow for javascript lint
 on:
   workflow_call:
     inputs:
-      config_file:
-         required: false
-         type: string
-         description: "Set config file to audit the js vulnerabilities"
-         default: "audit-ci.json"
       config:
          required: true
          type: string

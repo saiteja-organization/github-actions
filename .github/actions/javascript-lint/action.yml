@@ -30,9 +30,10 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working_dir }}
       run: |
+          config=${{ inputs.config_file }}
+          echo $config
           if ${{ inputs.config }}==true ; then
-            npx audit-ci --config "audit-ci.json"
-            echo "success"
+            echo $config
           else
             npx audit-ci
             echo "failure"

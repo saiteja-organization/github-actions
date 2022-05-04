@@ -31,7 +31,6 @@ runs:
       working-directory: ${{ inputs.working_dir }}
       run: |
           if ${{ inputs.config }}==true ; then
-            echo ${{ inputs.config_file }}
-            npx audit-ci --config ${{ inputs.config_file }}
+            npx audit-ci --config "audit-ci.json"
           fi
       

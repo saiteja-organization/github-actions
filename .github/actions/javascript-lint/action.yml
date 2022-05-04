@@ -13,6 +13,10 @@ inputs:
     required: false
     type: string
     description: "Set config file to audit the js vulnerabilities"
+  config:
+    required: true
+    type: string
+    description: "Set config file to audit the js vulnerabilities"
 
 runs:
   using: "composite"
@@ -25,5 +29,9 @@ runs:
     - name: Check Javascript Vulnerabilities for frontend and backend.
       shell: bash
       working-directory: ${{ inputs.working_dir }}
-      run: npx audit-ci --config ${{ inputs.config_file }}
+      run: |
+          if $config==${{ inputs.config }} ; then
+            npx audit-ci --config ${{ inputs.config_file }}
+          fi
+       
       

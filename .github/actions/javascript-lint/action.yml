@@ -30,7 +30,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.working_dir }}
       run: |
-          if $config==${{ inputs.config }} ; then
+          if ${{ inputs.config }}==true ; then
             npx audit-ci --config ${{ inputs.config_file }}
           fi
        

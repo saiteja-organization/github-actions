@@ -7,6 +7,10 @@ on:
          required: false
          type: string
          description: "Set config file to audit the js vulnerabilities"
+      config:
+         required: true
+         type: string
+         description: "Set config file to audit the js vulnerabilities"
       workflow_id:
          required: true
          type: string
@@ -72,3 +76,4 @@ jobs:
         with:
           working_dir: ${{ inputs.dir }}
           config_file: ${{ inputs.config_file }}
+          config: ${{ inputs.config }}

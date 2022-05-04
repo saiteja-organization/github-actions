@@ -32,5 +32,7 @@ runs:
       run: |
           if ${{ inputs.config }}==true ; then
             npx audit-ci --config "audit-ci.json"
+          else
+            npx audit-ci
           fi
       

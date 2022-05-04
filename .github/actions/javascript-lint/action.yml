@@ -34,7 +34,7 @@ runs:
           config=${{ inputs.config_file }}
           echo $config
           if ${{ inputs.config }}==true ; then
-            echo $config
+            npx audit-ci --config ${{ inputs.config_file }}
           else
             npx audit-ci
             echo "failure"

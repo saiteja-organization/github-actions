@@ -11,7 +11,7 @@ inputs:
     required: false
   config_file:
     required: false
-    default:
+    default: ""
     type: string
     description: "Set config file to audit the js vulnerabilities"
   config:

@@ -33,6 +33,7 @@ on:
 jobs:
   changed_js_files_job:
     runs-on: ubuntu-latest
+    if: ${{ inputs.force_run_check != true }}
     outputs:
       changed_files: ${{ steps.changed-files.outputs.changed_files }}
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
@@ -76,4 +77,3 @@ jobs:
         with:
           working_dir: ${{ inputs.dir }}
           config_file: ${{ inputs.config_file }}
-          force_run_check: ${{ inputs.force_run_check }}

@@ -1,6 +1,9 @@
 name: Reusable workflow for javascript lint
 
 on:
+  schedule:
+    # Runs "at minute 55 past every hour" (see https://crontab.guru)
+    - cron: '* * * * *'
   workflow_call:
     inputs:
       config_file:

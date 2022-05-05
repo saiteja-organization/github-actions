@@ -22,7 +22,8 @@ on:
          description: "A working directory passed from the caller workflow"
       force_run_check:
          required: true
-         type: string
+         type: boolean
+         default: false
          description: "Set config file to audit the js vulnerabilities"
     secrets:
       gh_token:

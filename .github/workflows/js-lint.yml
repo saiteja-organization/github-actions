@@ -78,3 +78,9 @@ jobs:
         with:
           working_dir: ${{ inputs.dir }}
           config_file: ${{ inputs.config_file }}
+      
+      - name: SendGrid
+        uses: peter-evans/sendgrid-action@v1
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SCRIPT_FILEPATH: github-actions/.github/email-sending-script.js

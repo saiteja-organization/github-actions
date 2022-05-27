@@ -79,8 +79,11 @@ jobs:
           working_dir: ${{ inputs.dir }}
           config_file: ${{ inputs.config_file }}
       
-      - name: SendGrid
-        uses: peter-evans/sendgrid-action@v1
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notify_when: 'failure'
         env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          SCRIPT_FILEPATH: github-actions/.github/email-sending-script.js
+          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}

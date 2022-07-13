@@ -8,7 +8,7 @@ on:
         type: string
         description: "ID or filename of the workflow to get latest successful commit"
       fail-on-severity:
-        required: true
+        required: false
         type: string
         description: "Failure on PR's that introduce vulnerabilities of the high severity level"
         default: 'high'

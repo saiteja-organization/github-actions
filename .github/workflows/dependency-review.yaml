@@ -1,0 +1,28 @@
+name: Reusable workflow for Dependency Review
+
+on:
+  workflow_call:
+    inputs:
+      workflow_id:
+        required: true
+        type: string
+        description: "ID or filename of the workflow to get latest successful commit"
+      fail-on-severity:
+        required: true
+        type: string
+        description: "Failure on PR's that introduce vulnerabilities of the high severity level"
+        default: 'high'
+           
+permissions:
+  contents: read 
+jobs:
+  dependency-review-reusable:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v2
+        with:
+          # Possible values: "critical", "high", "moderate", "low"
+          fail-on-severity: ${{ inputs.fail-on-severity }}

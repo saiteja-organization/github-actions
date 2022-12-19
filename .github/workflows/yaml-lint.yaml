@@ -18,10 +18,6 @@ on:
        required: false
        type: boolean
        default: false    
-    files:
-      description: "List of file paths to check"
-      required: false
-      type: string
     config_file:
       description: "Custom rule for yamllint"
       required: false
@@ -37,9 +33,7 @@ jobs:
       run: |
         sudo apt install yamllint -y
         exit_code=0
-        for file in ${{ inputs.files }}; do
           yamllint -c ${{ inputs.config_file }} $file || exit_code=1
-        done
         exit $exit_code
         
     - name: 'node install'

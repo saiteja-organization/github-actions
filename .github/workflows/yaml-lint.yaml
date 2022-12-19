@@ -1,9 +1,8 @@
 name: Check Dockerfile Lint rules.
-description: "Check that Dockerfiles in the PR are respecting hadolint rules"
 
 on:
   workflow_call:
-  inputs:
+   inputs:
     node_install:
        description: "Normally we shouldn't allow lock file updates but during transition from GH to GAR we need this"
        required: false

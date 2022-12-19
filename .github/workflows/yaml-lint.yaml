@@ -33,7 +33,7 @@ jobs:
       run: |
         sudo apt install yamllint -y
         exit_code=0
-          yamllint -c ${{ inputs.config_file }} $file || exit_code=1
+          yamllint --help
         exit $exit_code
         
     - name: 'node install'

@@ -2,6 +2,21 @@ name: Check Dockerfile Lint rules.
 description: "Check that Dockerfiles in the PR are respecting hadolint rules"
 
 inputs:
+  node_install:
+      description: "Normally we shouldn't allow lock file updates but during transition from GH to GAR we need this"
+      required: false
+      type: boolean
+      default: false
+  test_command:
+      description: "Normally we shouldn't allow lock file updates but during transition from GH to GAR we need this"
+      required: false
+      type: boolean
+      default: false    
+  yaml_lint:
+      description: "Normally we shouldn't allow lock file updates but during transition from GH to GAR we need this"
+      required: false
+      type: boolean
+      default: false    
   files:
     description: "List of file paths to check"
     required: true
@@ -13,6 +28,7 @@ runs:
   using: "composite"
   steps:
     - name: 'Yamllint'
+      if: ${{ inputs.yaml_lint }}
       shell: bash
       run: |
         sudo apt install yamllint -y
@@ -21,3 +37,15 @@ runs:
           yamllint -c ${{ inputs.config_file }} $file || exit_code=1
         done
         exit $exit_code
+        
+    - name: 'node install'
+      if: ${{ inputs.node_install }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: 'test commands'
+      if: ${{ inputs.test_command }}
+      run: |
+           echo "this is for conditional test final stage"
+           

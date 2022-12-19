@@ -21,14 +21,16 @@ on:
     files:
       description: "List of file paths to check"
       required: false
+      type: string
     config_file:
       description: "Custom rule for yamllint"
-      requried: false
+      required: false
+      type: string
      
 jobs:
   test-reusable-gha:
-  runs-on: ubuntu-latest
-  steps:
+   runs-on: ubuntu-latest
+   steps:
     - name: 'Yamllint'
       if: ${{ inputs.yaml_lint }}
       shell: bash

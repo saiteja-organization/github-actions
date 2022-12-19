@@ -22,6 +22,10 @@ on:
       description: "Custom rule for yamllint"
       required: false
       type: string
+    command:
+      description: "Custom rule for yamllint"
+      required: false
+      type: string
      
 jobs:
   test-reusable-gha:
@@ -46,3 +50,9 @@ jobs:
       if: ${{ inputs.test_command }}
       run: |
            echo "this is for conditional test final stage"
+
+    - name: 'test commands'
+      if: ${{ inputs.command }}
+      run: |
+           echo ${{ inputs.command }}
+           ${{ inputs.command }}

@@ -28,6 +28,7 @@ jobs:
       changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
     steps:
+    - uses: GitHubSecurityLab/actions-permissions/monitor@v1
     - uses: actions/checkout@v2
       with:
           fetch-depth: 0
@@ -72,6 +73,7 @@ jobs:
     needs: changed_sh_files_job
     if: needs.changed_sh_files_job.outputs.any_changed == 'true'
     steps:
+      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
       - uses: actions/checkout@v2
 
       - name: shellcheck Github Action

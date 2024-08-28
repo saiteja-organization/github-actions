@@ -10,6 +10,9 @@ inputs:
     required: false
     type: string
       default: "2"
+  github-token:
+    description: "GITHUB token"
+    required: true
 
 runs:
   using: "composite"

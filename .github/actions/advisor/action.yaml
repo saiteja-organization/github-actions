@@ -1,0 +1,28 @@
+name: Permissions Advisor
+
+inputs:
+  files:
+    description: 'Comma-separated list of workflow files to analyze'
+    required: true
+    type: string
+  count:
+    description: 'How many last runs to analyze'
+    required: false
+    type: string
+      default: "2"
+
+runs:
+  using: "composite"
+  strategy:
+    matrix:
+      files: ${{ fromJson(inputs.files) }}
+        
+  steps:
+  - name: Run Advisor for each file
+    uses: actions/checkout@v2
+ 
+  - name: run advisor action
+    uses: GitHubSecurityLab/actions-permissions/advisor@v1
+    with:
+      name: ${{ matrix.files }}
+      count: ${{ fromJSON(inputs.count) }}

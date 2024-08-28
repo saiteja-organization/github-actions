@@ -8,7 +8,7 @@ on:
     inputs:
       files:
         description: 'Comma-separated list of workflow files to analyze'
-        required: true
+        required: false
         type: string
         default: |
          test-actions.yaml

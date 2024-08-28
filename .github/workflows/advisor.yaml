@@ -1,7 +1,7 @@
 name: Permissions Advisor
 
-# permissions:
-#   actions: read
+permissions:
+  actions: read
 
 on:
   workflow_call:
@@ -20,21 +20,12 @@ on:
 jobs:
   advisor:
     runs-on: ubuntu-latest
-    outputs:
-      files: ${{ steps.vars.outputs.list_files }}
-
-    strategy:
-      matrix:
-        files: ${{ fromJson(needs.setup.outputs.files) }}
 
     steps:
     - name: Run Advisor for each file
       uses: actions/checkout@v2
-    - name: Create an array of projects
-      id: vars
-      run: echo "::set-output name=list_files::$(jq 'split(",")' -Rc <(echo '${{ inputs.files }}'))"
-
+ 
     - uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
-        name: ${{ matrix.files }}
+        name: ${{ inputs.files }}
         count: ${{ fromJSON(inputs.count) }}

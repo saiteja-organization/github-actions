@@ -20,14 +20,20 @@ on:
 jobs:
   advisor:
     runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.vars.outputs.list_files }}
+
     strategy:
       matrix:
-        files: ${{ fromJson(inputs.files) }}
+        files: ${{ fromJson(needs.setup.outputs.files) }}
 
     steps:
     - name: Run Advisor for each file
       uses: actions/checkout@v2
- 
+    - name: Create an array of projects
+      id: vars
+      run: echo "::set-output name=list_files::$(jq 'split(",")' -Rc <(echo '${{ inputs.files }}'))"
+
     - uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
         name: ${{ matrix.files }}

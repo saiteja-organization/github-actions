@@ -8,12 +8,9 @@ on:
     inputs:
       files:
         description: 'Comma-separated list of workflow files to analyze'
-        required: false
+        required: true
         type: string
-        default: |
-         test-actions.yaml,
-         go-releas.yaml
-         
+
       count:
         description: 'How many last runs to analyze'
         required: false

@@ -33,5 +33,5 @@ jobs:
  
     - uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
-        name: ${{ matrix.file }}
+        name: ${{ matrix.files }}
         count: ${{ fromJSON(inputs.count) }}

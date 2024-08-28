@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        files: ["test-actions.yaml", "go-releas.yaml"]
+        files: ${{ fromJson(inputs.files) }}
         
     steps:
     - name: Run Advisor for each file

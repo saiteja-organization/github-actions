@@ -1,7 +1,7 @@
 name: Permissions Advisor
 
-permissions:
-  actions: read
+# permissions:
+#   actions: read
 
 on:
   workflow_call:

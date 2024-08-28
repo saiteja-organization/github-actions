@@ -6,10 +6,14 @@ name: Permissions Advisor
 on:
   workflow_call:
     inputs:
-      name:
-        description: 'The name of the workflow file to analyze'
+      files:
+        description: 'Comma-separated list of workflow files to analyze'
         required: true
         type: string
+        default: |
+         test-actions.yaml
+         go-releas.yaml
+         
       count:
         description: 'How many last runs to analyze'
         required: false
@@ -19,8 +23,19 @@ on:
 jobs:
   advisor:
     runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     version: [ ${{ inputs.name }}, ${{ inputs.count }} ]
+        
     steps:
+    - name: Run Advisor for each file
+      uses: actions/checkout@v2
+
+    - name: Split input files
+      id: split
+      run: echo "::set-output name=files::$(echo '${{ inputs.files }}' | tr ',' '\n')"
+      
     - uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
-        name: ${{ inputs.name }}
+        name: ${{ each file in steps.split.outputs.files }}
         count: ${{ fromJSON(inputs.count) }}

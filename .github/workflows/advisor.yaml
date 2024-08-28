@@ -11,31 +11,27 @@ on:
         required: false
         type: string
         default: |
-         test-actions.yaml
+         test-actions.yaml,
          go-releas.yaml
          
       count:
         description: 'How many last runs to analyze'
         required: false
         type: string
-        default: "10"
+        default: "2"
 
 jobs:
   advisor:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     version: [ ${{ inputs.name }}, ${{ inputs.count }} ]
+    strategy:
+      matrix:
+        files: ["test-actions.yaml", "go-releas.yaml"]
         
     steps:
     - name: Run Advisor for each file
       uses: actions/checkout@v2
-
-    - name: Split input files
-      id: split
-      run: echo "::set-output name=files::$(echo '${{ inputs.files }}' | tr ',' '\n')"
-      
+ 
     - uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
-        name: ${{ each file in steps.split.outputs.files }}
+        name: ${{ matrix.file }}
         count: ${{ fromJSON(inputs.count) }}

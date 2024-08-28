@@ -18,8 +18,8 @@ runs:
       files: ${{ fromJson(inputs.files) }}
         
   steps:
-  - name: Run Advisor for each file
-    uses: actions/checkout@v2
+  # - name: Run Advisor for each file
+  #   uses: actions/checkout@v2
  
   - name: run advisor action
     uses: GitHubSecurityLab/actions-permissions/advisor@v1

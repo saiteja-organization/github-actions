@@ -20,6 +20,9 @@ on:
 jobs:
   advisor:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        files: ${{ fromJson(inputs.files) }}
 
     steps:
     - name: Run Advisor for each file
@@ -27,5 +30,5 @@ jobs:
  
     - uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
-        name: ${{ inputs.files }}
+        name: ${{ matrix.files }}
         count: ${{ fromJSON(inputs.count) }}

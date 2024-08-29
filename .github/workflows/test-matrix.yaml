@@ -1,0 +1,23 @@
+name: test matrix
+
+# permissions:
+#   actions: read
+
+on:
+  workflow_call:
+    inputs:
+      files:
+        description: 'Comma-separated list of workflow files to analyze'
+        required: true
+        type: string
+
+jobs:
+  advisor:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          files: ${{ fromJson(inputs.files) }}
+
+    steps:
+    - name: Run matrix command
+      run: echo "Matrix value is ${{ matix.files }}"

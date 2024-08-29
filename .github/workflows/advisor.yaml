@@ -32,3 +32,5 @@ jobs:
       with:
         name: ${{ matrix.files }}
         count: ${{ fromJSON(inputs.count) }}
+      env:
+        RUNNER_DEBUG: true

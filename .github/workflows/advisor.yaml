@@ -25,10 +25,10 @@ jobs:
           files: ${{ fromJson(inputs.files) }}
 
     steps:
-    - name: Run Advisor for each file
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
  
-    - uses: GitHubSecurityLab/actions-permissions/advisor@v1
+    - name: Run Advisor for ${{ matrix.files }} file
+      uses: GitHubSecurityLab/actions-permissions/advisor@v1
       with:
         name: ${{ matrix.files }}
         count: ${{ fromJSON(inputs.count) }}

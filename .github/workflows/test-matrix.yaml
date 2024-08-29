@@ -20,4 +20,4 @@ jobs:
 
     steps:
     - name: Run matrix command
-      run: echo "Matrix value is ${{ matix.files }}"
+      run: echo ${{ matix.files }}

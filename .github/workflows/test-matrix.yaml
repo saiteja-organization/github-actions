@@ -20,4 +20,4 @@ jobs:
 
     steps:
     - name: Run matrix command
-      run: echo ${{ matix.files }}
+      run: echo ${{ matrix.files }}
